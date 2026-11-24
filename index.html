@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0f1115">
+<title>Ponto</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header class="top">
+    <div class="title">
+      <button class="icon-btn" id="prev" aria-label="Mês anterior">‹</button>
+      <h1 id="monthLabel"></h1>
+      <button class="icon-btn" id="next" aria-label="Próximo mês">›</button>
+    </div>
+    <div class="actions">
+      <button class="icon-btn" id="btnReports" aria-label="Relatórios">📄</button>
+      <button class="icon-btn" id="btnTheme" aria-label="Alternar tema">🌙</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="summary card" id="summary"></section>
+    <section class="card cal">
+      <div class="dow"><span>D</span><span>S</span><span>T</span><span>Q</span><span>Q</span><span>S</span><span>S</span></div>
+      <div class="grid" id="grid"></div>
+    </section>
+    <section class="legend">
+      <span><i class="dot ok"></i>Extra</span>
+      <span><i class="dot neg"></i>Devendo</span>
+      <span><i class="dot folga"></i>Folga</span>
+      <span><i class="dot feriado"></i>Feriado</span>
+      <span><i class="dot comp"></i>Compens.</span>
+      <span><i class="dot falta"></i>Falta</span>
+    </section>
+  </main>
+</div>
+
+<!-- Bottom sheet do dia -->
+<div class="backdrop" id="dayBackdrop" hidden></div>
+<div class="sheet" id="daySheet" role="dialog" aria-modal="true" hidden>
+  <div class="handle"></div>
+  <div class="sheet-head">
+    <h2 id="dayTitle"></h2>
+    <button class="icon-btn" id="dayClose" aria-label="Fechar">✕</button>
+  </div>
+
+  <div class="chips" id="chips">
+    <button data-tipo="folga">Folga</button>
+    <button data-tipo="feriado">Feriado</button>
+    <button data-tipo="compensacao">Compensação</button>
+    <button data-tipo="falta">Falta</button>
+  </div>
+
+  <div id="timeFields">
+    <div class="field" data-f="entrada">
+      <label>Entrada</label>
+      <input type="time" id="f_entrada">
+      <button class="hint" type="button" hidden></button>
+    </div>
+    <div class="field" data-f="saidaInt">
+      <label>Saída p/ intervalo</label>
+      <input type="time" id="f_saidaInt">
+      <button class="hint" type="button" hidden></button>
+    </div>
+    <div class="field" data-f="volta">
+      <label>Volta do intervalo</label>
+      <input type="time" id="f_volta">
+      <button class="hint" type="button" hidden></button>
+    </div>
+    <div class="field" data-f="saida">
+      <label>Saída</label>
+      <input type="time" id="f_saida">
+      <button class="hint" type="button" hidden></button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Observação</label>
+    <input type="text" id="f_obs" maxlength="80" placeholder="opcional">
+  </div>
+
+  <div class="live" id="live"></div>
+
+  <div class="sheet-actions">
+    <button class="btn ghost" id="dayClear">Limpar dia</button>
+    <button class="btn primary" id="daySave">Salvar</button>
+  </div>
+</div>
+
+<!-- Relatórios -->
+<div class="backdrop" id="repBackdrop" hidden></div>
+<div class="sheet" id="repSheet" role="dialog" aria-modal="true" hidden>
+  <div class="handle"></div>
+  <div class="sheet-head">
+    <h2>Relatórios</h2>
+    <button class="icon-btn" id="repClose" aria-label="Fechar">✕</button>
+  </div>
+  <div id="repList"></div>
+</div>
+
+<!-- Pré-visualização do período atual -->
+<div class="backdrop" id="prevBackdrop" hidden></div>
+<div class="sheet tall" id="prevSheet" role="dialog" aria-modal="true" hidden>
+  <div class="handle"></div>
+  <div class="sheet-head">
+    <div><h2>Folha de ponto</h2><small class="muted" id="prevInfo"></small></div>
+    <button class="icon-btn" id="prevClose" aria-label="Fechar">✕</button>
+  </div>
+  <div class="prev-scroll" id="prevTable"></div>
+  <div class="sheet-actions">
+    <button class="btn ghost" id="prevBack">Voltar</button>
+    <button class="btn primary" id="prevDownload">Baixar PDF</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
